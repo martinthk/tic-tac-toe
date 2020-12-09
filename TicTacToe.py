@@ -2,10 +2,6 @@
 import json
 """
 TODO:
- - A function to check if there is a winner
- - The insert letter function
- - A function to check if position is free
- - A function for the player move
  - The AI function for the computer
  - Select random function
  - The main function
@@ -88,6 +84,8 @@ This function prompts the user to enter a position on the board in which an x is
 4. If it doesn’t pass one case, then an error is thrown back respectively 
 5. This means that if it is occupied, the user is alerted and told to pick a different number. 
 """
+
+
 def playMove():
     run = True
     while run:
@@ -106,5 +104,58 @@ def playMove():
             print("Please type a number.")
 
 
-# Test
-printBoard(board)
+# * AI function * #
+"""
+Explain:
+This is the function that picks out the option the computer will make.
+1. Check for the available spaces -> store the position in a variable
+2. Check if it has any possible move that will allow it to win -> place its letter there.
+3. If not, it will then check if the opponent is about to win -> will counter and place a letter to block you from winning.
+4. When neither are true, then it is free to place a letter anywhere in the available slots.
+To make it logical:
+(if the corners are empty) it will place a letter randomly at the corners 
+(if not) pick the middle slot if open.
+When none of the cases above are true then it will randomly pick an empty edge slot and place its letter there.
+"""
+
+
+def compMove():
+    # Checks for empty slots in the board
+    """
+    e.g. 0, ' '; 1, 'x'; 2, 'o'
+    """
+    possibleMoves = [x for x, letter in enumerate(board) if letter == ' ' and x != 0]
+    move = 0
+
+    # Checks if one of the players has a wining move
+    for let in ['o', 'x']:
+        for i in possibleMoves:
+            boardCopy = board[:]
+            boardCopy[i] = let
+            if isWinner(boardCopy, let):
+                move = i
+                return move
+
+    # Checks for open corners
+    cornersOpen = []
+    for i in possibleMoves:
+        if i in [1, 3, 7, 9]:
+            cornersOpen.append(i)
+    if len(cornersOpen) > 0:
+        move = selectRandom(cornersOpen)
+        return move
+
+     # Checks for open middle slot.
+    if 5 in possibleMoves:
+        move = 5
+        return move
+
+    edgesOpen = []
+    for i in possibleMoves:
+        if i in [2, 4, 6, 8]:
+            edgesOpen.append(i)
+    if len(edgesOpen) > 0:
+        move = selectRandom(edgesOpen)
+    return move
+
+
