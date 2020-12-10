@@ -1,9 +1,5 @@
 # Tic Tac Toe in Python (aka X’s and O’s game)
 import json
-"""
-TODO:
- - The main function
-"""
 # Human user will always be the 1st one to start and using 'x'
 board = [' ' for x in range(10)]    # The blank board
 
@@ -87,7 +83,7 @@ This function prompts the user to enter a position on the board in which an x is
 def playMove():
     run = True
     while run:
-        move = input("Please select position for 'X' (1-9): ")
+        move = input("\n Please select position for 'X' (1-9): ")
         try:
             move = int(move)
             if move > 0 and move < 10:
@@ -168,3 +164,30 @@ def selectRandom(li):
     ln = len(li)
     r = random.randrange(0, ln)
     return li[r]
+
+# * The main * #
+def main():
+    print("Welcome tic tac toe!")
+    printBoard(board)
+    while not(isBoardFull(board)):
+        if not(isWinner(board, "o")):
+            playMove()
+            printBoard(board)
+        else:
+            print("Sorry, O's won this time! ")
+            break
+        if not(isWinner(board, "x")):
+            move  = compMove()
+            if move == 0:
+                print("Tie game")
+            else:
+                insertLetter("o", move)
+                print("Computer placed an 'o' in position", move, ":")
+                printBoard(board)
+        else:
+            print("X's won this time! Good job")
+            break
+    if isBoardFull(board):
+        print("Tie game")
+
+main() 
