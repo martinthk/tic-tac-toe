@@ -157,4 +157,3 @@ def compMove():
         move = selectRandom(edgesOpen)
     return move
 
-
