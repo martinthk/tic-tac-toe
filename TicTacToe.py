@@ -2,7 +2,6 @@
 import json
 """
 TODO:
- - Select random function
  - The main function
 """
 # Human user will always be the 1st one to start and using 'x'
@@ -157,3 +156,15 @@ def compMove():
         move = selectRandom(edgesOpen)
     return move
 
+
+# * Select random * #
+"""
+Explain:
+Selects a random position on the board for the computer to place its letter.
+"""
+def selectRandom(li):
+    # li is the list of open spots.
+    import random
+    ln = len(li)
+    r = random.randrange(0, ln)
+    return li[r]
