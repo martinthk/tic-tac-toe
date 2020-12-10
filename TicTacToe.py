@@ -2,7 +2,6 @@
 import json
 """
 TODO:
- - The AI function for the computer
  - Select random function
  - The main function
 """
@@ -61,7 +60,7 @@ def isWinner(bo, le):
 """ 
 Explain:
 The user should insert a number position on the board in which 'x' will be planced.
-Number position: 1 - 9 includsive
+Number position: 1 - 9 inclusive
 """
 
 
